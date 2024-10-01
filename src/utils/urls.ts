@@ -1,0 +1,1 @@
+export const baseUrl ='https://staging.agno-api.agnesmere-sarl.com';//'http://192.168.1.23:3001'// 

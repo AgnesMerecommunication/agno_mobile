@@ -1,0 +1,12 @@
+export const person = require('../../assets/icons/person.png');
+export const fleurProduct = require('../../assets/icons/fleur.jpeg');
+export const wifioff = require('../../assets/images/wifioff.png');
+export const puce = require('../../assets/images/puce.png');
+export const logoagno = require('../../assets/icons/logoagno.png');
+export const carte = require('../../assets/images/premium/carte-de-credit.png');
+export const couronne = require('../../assets/images/premium/couronne-neerlandaise.png');
+export const puceCarte = require('../../assets/images/premium/carte-bancaire.png');
+export const nfc = require('../../assets/images/argent.png');
+export const qr = require('../../assets/images/code-qr.png');
+export const avatar = require("../../assets/profile.png");
+export const stopIcon = require("../../assets/images/stop_button.png");

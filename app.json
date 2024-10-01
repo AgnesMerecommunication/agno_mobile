@@ -1,4 +1,8 @@
 {
   "name": "agnoapp",
-  "displayName": "agnoapp"
+  "displayName": "Agno",
+  "ios" : {
+    "bundleIdentifier" : "com.agnoapp",
+    "supportsTablet": false
+  }
 }
