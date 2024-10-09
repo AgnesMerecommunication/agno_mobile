@@ -44,7 +44,7 @@ const ListCartePrise = () => {
               activeOpacity={0.8}
               style={{width : 55,height : 55, borderRadius : 50,overflow : 'hidden'}}
               onPress={() => navigation.navigate({name: 'ProfilDetail', params: item} as never)}>
-              <Image source={{uri: item.picture}} style={{height : '100%', width : '100%'}}/>
+              <Image source={{uri: item.picture}} resizeMode='contain' style={{height : '100%', width : '100%'}}/>
         </TouchableOpacity> : <TouchableOpacity
               activeOpacity={0.8}
               style={{width : 55,height : 55, borderRadius : 50,overflow : 'hidden'}}

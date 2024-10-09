@@ -16,9 +16,6 @@ import { getBusinessCards } from "../services/apiServices";
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import { ActivityIndicator } from "react-native-paper";
 
-
-
-
 export default function PrincipalCard(){
     const navigation = useNavigation();
     const [horizontal,setHorizontal] = useState(false);
@@ -35,7 +32,7 @@ export default function PrincipalCard(){
     const go = async ()=>{
       setLoading(true);
       let codeData  = await asyncGetPublicKey();
-      setCode(`https://agno.agnesmere-communication.com/${codeData}`);
+      setCode(`https://agno.vercel.app/${codeData}`);
       let principale = await asyncGetPrincipale();
      
       if(principale){ 
@@ -113,7 +110,7 @@ const retrieveImage = async () => {
     const sharedLink = async() => {
         const userId = await asyncGetPublicKey();
           
-         Share.open({ message :`Découvrer mes informations sur :   https://agno.agnesmere-communication.com/${userId}    
+         Share.open({ message :`Découvrer mes informations sur :   https://agno.vercel.app/${userId}    
                                    \nFournis par Agno`,
                       })
                       .then((res) => {
@@ -190,12 +187,12 @@ const retrieveImage = async () => {
               <ChangerCard items={cards} onChange={(itema : any)=>{
                   setItem(itema);
                   var cardNumber = ModelCarte.filter(itemA=>itemA.id == itema.modelId)[0];
-                  setHorizontal(cardNumber.horizontal);
                   const formData = new FormData();
                   formData.append('principale',1)
                   dispatch(
                     modifyOneBusinessCard(itema.id, formData),
                   );
+                  setHorizontal(cardNumber.horizontal);
                   const formDataItem = new FormData();
                   formDataItem.append('principale',0)
                   dispatch(

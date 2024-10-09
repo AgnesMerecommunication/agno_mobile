@@ -186,13 +186,14 @@ export const ModelCarte  : CartData[]= [
     horizontal : true,
     mod: require('../../assets/images/mod/mod22.png'),
     cat: require('../../assets/images/cat/cat22.png'),
-  },  /*{
+  },{
     checked: false,
     id: cardId.card23,
     horizontal : true,
     mod: require('../../assets/images/mod/mod23.png'),
     cat: require('../../assets/images/cat/cat23.png'),
-  },  {
+  },  /*{
+    ,  {
     checked: false,
     id: cardId.card24,
     horizontal : false,
@@ -239,14 +240,14 @@ export const ModelCarte  : CartData[]= [
     horizontal : false,
     mod: require('../../assets/images/mod/mod30.png'),
     cat: require('../../assets/images/cat/cat30.png'),
-  },*/
+  },*
   {
     checked: false,
     id: cardId.card31,
     horizontal : true,
-    mod: require('../../assets/images/mod/mod23.png'),
+    mod: require('../../assets/images/mod/mod31.png'),
     cat: require('../../assets/images/cat/cat31.png'),
-  },
+  },*/
   {
     checked: false,
     id: cardId.card32,

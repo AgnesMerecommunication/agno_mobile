@@ -125,7 +125,7 @@ const CatalogProduct = () => {
               if(user?.underSubscriptionType === underSubscriptionType.PREMIUM){
                 const userId = await asyncGetPublicKey();
                 launchUrl(
-                  `https://agno.agnesmere-communication.com/${userId}`,
+                  `https://agno.vercel.app/${userId}`,
                 );
               }else {
                 setShowModal(false);

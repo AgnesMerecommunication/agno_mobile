@@ -107,6 +107,8 @@ const FormulaireCarte = ({route}: any) => {
         (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
         cardId.card22||
         (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
+        cardId.card23|| 
+        (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
         cardId.card24|| 
         (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
         cardId.card25|| 
@@ -211,7 +213,11 @@ const FormulaireCarte = ({route}: any) => {
               (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
               cardId.card20|| 
               (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
-              cardId.card22|| 
+              cardId.card22
+              || 
+              (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
+              cardId.card23
+              || 
               (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
               cardId.card24|| 
               (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
@@ -557,6 +563,7 @@ const FormulaireCarte = ({route}: any) => {
           (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card12
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card18
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card20
+          || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card23
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card22
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card24
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card25
@@ -622,6 +629,8 @@ const FormulaireCarte = ({route}: any) => {
             cardId.card20
             ||(update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
             cardId.card22
+            ||(update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
+            cardId.card23
             ||(update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
             cardId.card24
             || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card25
@@ -732,6 +741,8 @@ const FormulaireCarte = ({route}: any) => {
             cardId.card20
             || (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
             cardId.card22
+            || (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
+            cardId.card23
             || (update === true ? dataUpdate?.modelId : recupTemplate?.id) ===
             cardId.card24
           || (update === true ? dataUpdate?.modelId : recupTemplate?.id) === cardId.card25

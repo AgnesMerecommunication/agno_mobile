@@ -56,7 +56,7 @@ const DetailCarteVisite = ({route}: any) => {
     if(user?.underSubscriptionType
       === underSubscriptionType.PREMIUM){
         Share.open({
-          message :`Découvrer mes informations sur :   https://agno.agnesmere-communication.com/${userId}    
+          message :`Découvrer mes informations sur :   https://agno.vercel.app/${userId}    
           \nFournis par Agno`,
         })
         .then((res) => {
@@ -106,7 +106,8 @@ const DetailCarteVisite = ({route}: any) => {
  
   return (
     <BodyProject title="Retour">
-                <PremiumModal isVisible={showModal} onBackdropPress={()=> setShowModal(false)} close={()=> setShowModal(false)}/>
+                <PremiumModal isVisible={showModal} onBackdropPress={()=> setShowModal(false)} 
+                close={()=> setShowModal(false)}/>
 
       <ScrollView>
         <View
@@ -122,21 +123,21 @@ const DetailCarteVisite = ({route}: any) => {
             }}>
               <View>
                 <CustomText fontWeight="bold"> Carte de visite </CustomText>
-              <CustomText marginBottom={10} fontSize={13}>
-                Date: {formateDate(new Date(item.createdAt))}
-              </CustomText>
+                <CustomText marginBottom={10} fontSize={13}>
+                  Date: {formateDate(new Date(item.createdAt))}
+                </CustomText>
               </View>
               <DetailsCardShared sharedImage={()=>shareImage()} sharedLink={()=>sheredLink()}/>
             </View>
            
-
+          
             <View style={{zIndex : 0}}>
             <ViewShot ref={ref}>
                   <ImageComponent
                     uri={item.picture + '?' + new Date()}
-                    horizontal={(cardNumber.length == 0 ? true : (cardNumber[0].horizontal  == true ? false : true) )}
+                    horizontal={(cardNumber.length == 0 ? true : cardNumber[0].horizontal )}
                   />
-                </ViewShot>
+            </ViewShot>
             </View>
             <CustomText>Place carte</CustomText>
 

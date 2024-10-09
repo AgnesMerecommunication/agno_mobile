@@ -132,7 +132,7 @@ const Scan = () => {
   async function onSuccess(e: string) {
     if (e) {
       try {
-        let publicKey = e.replace('https://agno.agnesmere-communication.com/','');
+        let publicKey = e.replace('https://agno.vercel.app/','');
         const result = await addContact(publicKey);
         let contactCheckPermission = await Contacts.checkPermission();
         //Alert.alert("EDR", value); 

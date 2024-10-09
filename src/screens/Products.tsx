@@ -131,7 +131,7 @@ const Products = () => {
             onPress={async () => {
               const userId = await asyncGetPublicKey();
               launchUrl(
-                `https://agno.agnesmere-communication.com/${userId}`,
+                `https://agno.vercel.app/${userId}`,
               );
             }}
             top={

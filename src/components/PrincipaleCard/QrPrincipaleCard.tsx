@@ -12,7 +12,7 @@ export default function QrPrincipaleCard(){
     useEffect(()=>{
       const go = async ()=>{
         let codeData  = await asyncGetPublicKey();
-        setCode(`https://agno.agnesmere-communication.com/${codeData}`);
+        setCode(`https://agno.vercel.app/${codeData}`);
       }
      go();
     },[])

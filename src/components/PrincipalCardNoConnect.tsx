@@ -53,7 +53,7 @@ const retrieveImage = async () => {
     const sharedLink = async() => {
         const userId = await asyncGetPublicKey();
           
-         Share.open({ message :`Découvrer mes informations sur :   https://agno.agnesmere-communication.com/${userId}    
+         Share.open({ message :`Découvrer mes informations sur :   https://agno.vercel.app/${userId}    
                                    \nFournis par Agno`,
                       })
                       .then((res) => {

@@ -227,14 +227,14 @@ const Profil = () => {
               <View style={{flexDirection : 'row', alignItems : 'center'}}>
                 <Icons.GlobeAltIcon size={25} color={paletteColor.ORANGE} style={{marginRight : 5}}/>
                 <Text>{user?.underSubscriptionType
-                       === underSubscriptionType.PREMIUM ? `agno.agnesmere-communication.com/${publicKey}`: 'agno.agnesmere-communication.com/@username'}</Text>
+                       === underSubscriptionType.PREMIUM ? `agno.vercel.app/${publicKey}`: 'agno.vercel.app/@username'}</Text>
               </View>
 
                        
                        <Pressable onPress={async()=>{
                           if(user?.underSubscriptionType === underSubscriptionType.PREMIUM){
                             const publicKey = await asyncGetPublicKey();
-                            launchUrl(`https://agno.agnesmere-communication.com/${publicKey}`)}
+                            launchUrl(`https://agno.vercel.app/${publicKey}`)}
                             else {
                                 setShowModal(true);
                             } 

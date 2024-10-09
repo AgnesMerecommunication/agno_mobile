@@ -33,7 +33,7 @@ const ValiderCarte = ({route}: any) => {
   useEffect(()=>{
     asyncGetPublicKey().then(res=>{
       const publicKey = res;
-      setCode(`https://agno.agnesmere-communication.com/${publicKey}`)
+      setCode(`https://agno.vercel.app/${publicKey}`)
     });
     var cardNumber = ModelCarte.filter(itemA=>itemA.id == (data?.dataUpdate?.update === true
       ? data.modelId
@@ -116,7 +116,7 @@ const ValiderCarte = ({route}: any) => {
                 : route.params.recupTemplate?.cat
             }
             style={{height: horizontal == true ? 200 : 550,
-               width: '100%', borderRadius : 10}}
+               width: '100%', borderRadius : 10}} resizeMode='contain'
           />
         </ViewShot>
 
