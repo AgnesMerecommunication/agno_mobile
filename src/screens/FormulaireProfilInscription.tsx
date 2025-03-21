@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
-import {paletteColor} from '../themes/Utility';
-import CustomTextInput from '../components/CustomTextInput';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import CustomTextInput from '../components/CustomTextInput';
 import SelectPictue from '../components/SelectPictue';
 import {useInscription} from '../hooks/InscriptionProvider';
+import {paletteColor} from '../themes/Utility';
 
-const FormulaireProfilInscription = () => {
+interface FormulaireProfilInscriptionProps {
+  errors?: Record<string, string>;
+}
+
+const FormulaireProfilInscription: React.FC<
+  FormulaireProfilInscriptionProps
+> = ({errors = {}}) => {
   const [secureTextEntry, setSecureTextEntry] = useState(false);
   const {inscriptionData, setInscriptionData} = useInscription();
   const [verifFile, setVerifFile] = useState<any>({
@@ -30,15 +36,15 @@ const FormulaireProfilInscription = () => {
         verifFile={verifFile}
       />
 
-     
       <CustomTextInput
         onChangeText={e =>
           setInscriptionData({...inscriptionData, firstName: e})
         }
         title="Nom et prénoms"
         placeholder="Entrer votre nom et prénoms"
+        error={errors.firstName}
       />
-     
+
       <CustomTextInput
         title="Mot de passe"
         placeholder="*******************"
@@ -49,20 +55,25 @@ const FormulaireProfilInscription = () => {
         onChangeText={e =>
           setInscriptionData({...inscriptionData, password: e})
         }
+        error={errors.password}
       />
 
       <CustomTextInput
         onChangeText={e => setInscriptionData({...inscriptionData, email: e})}
         title="Email"
         placeholder="email@email.com"
+        error={errors.email}
       />
+
       <CustomTextInput
         onChangeText={e => setInscriptionData({...inscriptionData, phone: e})}
         title="Telephone"
         placeholder="+22501000001"
         keyboardType="numeric"
+        error={errors.phone}
       />
     </KeyboardAwareScrollView>
   );
 };
+
 export default FormulaireProfilInscription;

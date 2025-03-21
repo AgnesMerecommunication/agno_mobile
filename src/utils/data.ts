@@ -3,9 +3,9 @@ import {ICreateCards, IDataInscription} from '../types/api';
 export const asyncStorageType = {
   TOKEN: 'token',
   USERID: 'userId',
-  PUBLICKEY : 'publicKey',
-  PRINCIPALE : 'principale',
-  IMAGE : '@image_base64'
+  PUBLICKEY: 'publicKey',
+  PRINCIPALE: 'principale',
+  IMAGE: '@image_base64',
 };
 
 export const cardId = {
@@ -25,23 +25,23 @@ export const cardId = {
   card14: 14,
   card15: 15,
   card16: 16,
-  card17 : 17,
-  card18 : 18,
-  card19 : 19,
-  card20 : 20,
-  card21 : 21,
-  card22 : 22,
-  card23 : 23,
-  card24 : 24,
-  card25 : 25,
-  card26 : 26,
-  card27 : 27,
-  card28 : 28,
-  card29 : 29,
-  card30 : 30,
-  card31 : 31,
-  card32 : 32,
-  card33 : 33
+  card17: 17,
+  card18: 18,
+  card19: 19,
+  card20: 20,
+  card21: 21,
+  card22: 22,
+  card23: 23,
+  card24: 24,
+  card25: 25,
+  card26: 26,
+  card27: 27,
+  card28: 28,
+  card29: 29,
+  card30: 30,
+  card31: 31,
+  card32: 32,
+  card33: 33,
 };
 
 export const sexeUser = [
@@ -65,7 +65,7 @@ export const underSubscriptionType = {
   PREMIUM: 'PREMIUM',
   PREMIUM_LAPSED: 'PREMIUM_LAPSED',
 };
-  
+
 export const accountType = {
   PERSONAL: 'PERSONAL',
   PROFESSIONAL: 'PROFESSIONAL',

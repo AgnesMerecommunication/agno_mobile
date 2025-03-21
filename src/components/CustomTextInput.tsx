@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ColorValue,
   DimensionValue,
@@ -8,10 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import CustomText from './CustomText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {paletteColor} from '../themes/Utility';
+import CustomText from './CustomText';
 import RowJustifyContent from './RowJustifyContent';
 
 interface PropsTextInput {
@@ -45,6 +45,7 @@ interface PropsTextInput {
     | ((e: NativeSyntheticEvent<TextInputFocusEventData>) => void)
     | undefined;
   keyboardType?: KeyboardTypeOptions | undefined;
+  error?: string;
 }
 
 const CustomTextInput = ({
@@ -73,60 +74,71 @@ const CustomTextInput = ({
   onBlur,
   keyboardType,
   onPressText,
+  error,
 }: PropsTextInput) => {
   return (
     <View>
-       <TouchableOpacity onPress={onPress}>
-      <RowJustifyContent>
-        <CustomText marginTop={marginTop} marginBottom={5}>
-          {title}
-        </CustomText>
-        {subTitle && <CustomText
-          onPress={onPressText}
-          color={paletteColor.ORANGE}
-          marginTop={marginTop}
-          marginBottom={5}>
-          {subTitle}
-        </CustomText>}
-      </RowJustifyContent>
-      <View
-        style={{
-          height,
-          borderColor,
-          borderWidth,
-          borderRadius,
-          paddingHorizontal,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor,
-          elevation,
-        }}>
-        <TextInput
-          keyboardType={keyboardType}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          numberOfLines={1}
-          style={{color: paletteColor.BLACK, width: verifIcon == true ? '90%' : '100%'}}
-          defaultValue={defaultValue}
-          onChangeText={onChangeText}
-          multiline={multiline}
-          placeholder={placeholder}
-          placeholderTextColor="rgba(000,000,000,0.5)"
-          secureTextEntry={secureTextEntry}
-          value={value}
-          editable={editable}
-        />
-        {verifIcon == true && (
-          <View>
+      <TouchableOpacity onPress={onPress}>
+        <RowJustifyContent>
+          <CustomText marginTop={marginTop} marginBottom={5}>
+            {title}
+          </CustomText>
+          {subTitle && (
+            <CustomText
+              onPress={onPressText}
+              color={paletteColor.ORANGE}
+              marginTop={marginTop}
+              marginBottom={5}>
+              {subTitle}
+            </CustomText>
+          )}
+        </RowJustifyContent>
+        <View
+          style={{
+            height,
+            borderColor: error ? paletteColor.RED : borderColor,
+            borderWidth,
+            borderRadius,
+            paddingHorizontal,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor,
+            elevation,
+          }}>
+          <TextInput
+            keyboardType={keyboardType}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            numberOfLines={1}
+            style={{
+              color: paletteColor.BLACK,
+              width: verifIcon == true ? '90%' : '100%',
+            }}
+            defaultValue={defaultValue}
+            onChangeText={onChangeText}
+            multiline={multiline}
+            placeholder={placeholder}
+            placeholderTextColor="rgba(000,000,000,0.5)"
+            secureTextEntry={secureTextEntry}
+            value={value}
+            editable={editable}
+          />
+          {verifIcon == true && (
+            <View>
               <MaterialCommunityIcons
                 color={colorIcon}
                 name={secureTextEntry ? 'eye-off' : nameIcon}
                 size={25}
               />
-          </View>
+            </View>
+          )}
+        </View>
+        {error && (
+          <CustomText color={paletteColor.RED} fontSize={12} marginTop={5}>
+            {error}
+          </CustomText>
         )}
-      </View>
       </TouchableOpacity>
     </View>
   );

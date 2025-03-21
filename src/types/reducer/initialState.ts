@@ -1,5 +1,6 @@
 interface IInitialState {
   isLoading: boolean;
-  userToken: any;
+  userToken: string | null;
+  isAuthenticated: boolean;
 }
 export default IInitialState;

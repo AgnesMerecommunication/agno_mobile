@@ -1,96 +1,141 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {notifyMessage} from '../common/notifyMessage';
 import BodyProject from '../components/BodyProject';
 import CustomButton from '../components/CustomButton';
-import {paletteColor} from '../themes/Utility';
+import {
+  actionReducer,
+  actionTypeReducer,
+} from '../contexts/reducers/actionReducer';
+import {useAuth} from '../hooks/AuthProvider';
 import {useInscription} from '../hooks/InscriptionProvider';
+import {createAccount} from '../services/apiServices';
+import {
+  asyncPostPublicKey,
+  asyncPostToken,
+  asyncPostUserId,
+} from '../services/asyncStorage';
+import {paletteColor} from '../themes/Utility';
 import FormulaireProfilInscription from './FormulaireProfilInscription';
-import {notifyMessage} from '../common/notifyMessage';
-import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../hooks/AuthProvider';
-import {asyncPostPublicKey, asyncPostToken, asyncPostUserId } from '../services/asyncStorage';
-import {createAccount } from '../services/apiServices';
-import { actionReducer, actionTypeReducer } from '../contexts/reducers/actionReducer';
 
 const Register = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {inscriptionData, setInscriptionData} = useInscription();
   const navigation = useNavigation();
-  const formData = new FormData();
-
   const [isValidate, setIsValidate] = useState(false);
-  const [accountId, setAccountId] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const {dispatchAuhtContext} = useAuth();
 
-  const handleInscription = async (choose: string) => {
-    setIsValidate(true);
-    const config = {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        //Authorization: `Bearer ${token}`,
-      },
+  useEffect(() => {
+    return () => {
+      // Cleanup function
+      setIsValidate(false);
+      setErrors({});
     };
-    setInscriptionData({...inscriptionData, underSubscriptionType: choose});
-    formData.append('firstName', inscriptionData.firstName);
-    formData.append('email', inscriptionData.email);
-    formData.append('phone', inscriptionData.phone);
-    formData.append('password', inscriptionData.password);
-    formData.append('subscriptionType', inscriptionData.subscriptionType);
-    formData.append('accountType', inscriptionData.accountType);
-    formData.append(
-      'underSubscriptionType',
-      inscriptionData.underSubscriptionType,
-    );
+  }, []);
 
-    formData.append(
-      'picture',
-      inscriptionData.file.uri !== null ? inscriptionData.file : null,
-    );
-    
-      createAccount(formData, config)
-      .then(res => {
-        setIsValidate(false);
-        if(res){
-          setAccountId(res?.data?.userId);
-          asyncPostToken(res.data.accessToken);
-          asyncPostUserId(res.data.userId);
-          asyncPostPublicKey(res.data.publicKey);
-          dispatchAuhtContext(
-            actionReducer(actionTypeReducer.SIGN_IN, res.data.accessToken),
-          );
-          setIsValidate(false);
-          navigation.navigate('StackHome' as never);
-        }
-      })
-      .catch((err: any) => {
-        setIsValidate(false);
-        notifyMessage(err.response.data.message);
-      });
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!inscriptionData.firstName?.trim()) {
+      newErrors.firstName = 'Le nom est requis';
+    }
+    if (!inscriptionData.email?.trim()) {
+      newErrors.email = "L'email est requis";
+    } else if (!/\S+@\S+\.\S+/.test(inscriptionData.email)) {
+      newErrors.email = "Format d'email invalide";
+    }
+    if (!inscriptionData.phone?.trim()) {
+      newErrors.phone = 'Le téléphone est requis';
+    }
+    if (!inscriptionData.password?.trim()) {
+      newErrors.password = 'Le mot de passe est requis';
+    } else if (inscriptionData.password.length < 6) {
+      newErrors.password =
+        'Le mot de passe doit contenir au moins 6 caractères';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
+  const handleInscription = async () => {
+    try {
+      if (!validateForm()) {
+        return;
+      }
 
+      setIsValidate(true);
+      const formData = new FormData();
+
+      formData.append('firstName', inscriptionData.firstName.trim());
+      formData.append('email', inscriptionData.email.trim());
+      formData.append('phone', inscriptionData.phone.trim());
+      formData.append('password', inscriptionData.password);
+      formData.append('subscriptionType', inscriptionData.subscriptionType);
+      formData.append('accountType', inscriptionData.accountType);
+      formData.append(
+        'underSubscriptionType',
+        inscriptionData.underSubscriptionType || 'free',
+      );
+
+      if (inscriptionData.file?.uri) {
+        formData.append('picture', inscriptionData.file);
+      }
+
+      const config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const response = await createAccount(formData, config);
+
+      if (response?.data) {
+        const {accessToken, userId, publicKey} = response.data;
+
+        await Promise.all([
+          asyncPostToken(accessToken),
+          asyncPostUserId(userId),
+          asyncPostPublicKey(publicKey),
+        ]);
+
+        dispatchAuhtContext(
+          actionReducer(actionTypeReducer.SIGN_IN, accessToken),
+        );
+        navigation.navigate('StackHome' as never);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || 'Une erreur est survenue';
+      notifyMessage(errorMessage);
+    } finally {
+      setIsValidate(false);
+    }
+  };
 
   return (
-    <BodyProject
-      title={'Inscription'}
-      backgroundColor={paletteColor.WHITE}>
+    <BodyProject title={'Inscription'} backgroundColor={paletteColor.WHITE}>
       <ScrollView
         style={{marginHorizontal: 10}}
         showsVerticalScrollIndicator={false}>
-        <Text style={{textAlign : 'center', marginTop : 15, fontSize : 18}}>Créer un compte et beneficier de pluisieur carte de visite gratuite</Text>
-        <FormulaireProfilInscription />
-        
+        <Text style={{textAlign: 'center', marginTop: 15, fontSize: 18}}>
+          Créer un compte et bénéficier de plusieurs cartes de visite gratuites
+        </Text>
+
+        <FormulaireProfilInscription errors={errors} />
 
         <View style={{marginVertical: 20}}>
-        <CustomButton
-            label={
-              (isValidate == true ? 'Patientez...': "S'inscrire")
-            }
+          <CustomButton
+            label={isValidate ? 'Patientez...' : "S'inscrire"}
             onPress={handleInscription}
+            disabled={isValidate}
           />
-          </View>
+        </View>
       </ScrollView>
     </BodyProject>
   );
